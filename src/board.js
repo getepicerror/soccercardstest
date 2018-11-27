@@ -41,12 +41,12 @@ define(["require", "exports", "./tile"], function (require, exports, tile_1) {
             tile.y = 4 * 50;
             tile = new tile_1.Tile();
             this.addChild(tile);
-            tile.id = this.tiles.length;
+            tile.id = this.tiles.length + 1;
             this.tiles.push(tile);
             tile.x = Board.WIDTH * 50;
             tile.y = 4 * 50;
         };
-        Board.WIDTH = 16;
+        Board.WIDTH = 15;
         Board.HEIGHT = 9;
         return Board;
     }(PIXI.Container));

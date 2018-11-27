@@ -3,7 +3,7 @@ import { Tile } from "./tile";
 
 export class Board extends PIXI.Container
 {
-    public static WIDTH = 16;
+    public static WIDTH = 15;
     public static HEIGHT = 9;
     private tiles = [];
 
@@ -39,7 +39,7 @@ export class Board extends PIXI.Container
         //goal2
         tile = new Tile();
         this.addChild(tile);
-        tile.id = this.tiles.length;
+        tile.id = this.tiles.length+1;
         this.tiles.push(tile);
         tile.x = Board.WIDTH * 50;
         tile.y = 4 * 50;

@@ -18,7 +18,9 @@ define(["require", "exports"], function (require, exports) {
         __extends(Tile, _super);
         function Tile() {
             var _this = _super.call(this) || this;
-            _this.id = -1;
+            _this._id = -1;
+            _this.interactive = true;
+            _this.buttonMode = true;
             _this.back = new PIXI.Graphics();
             _this.addChild(_this.back);
             _this.draw();
@@ -26,9 +28,27 @@ define(["require", "exports"], function (require, exports) {
         }
         Tile.prototype.draw = function () {
             this.back.lineStyle(2, 0xeeeeee, 1);
+            if (this._id % 2 == 1) {
+                this.back.beginFill(0x000000, 0.012);
+            }
+            else {
+                this.back.beginFill(0x000000, 0);
+            }
             this.back.drawRect(0, 0, 50, 50);
         };
+        Object.defineProperty(Tile.prototype, "id", {
+            get: function () {
+                return this._id;
+            },
+            set: function (id) {
+                this._id = id;
+                this.draw();
+            },
+            enumerable: true,
+            configurable: true
+        });
         return Tile;
     }(PIXI.Container));
     exports.Tile = Tile;
+    s;
 });

@@ -11,23 +11,19 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./board"], function (require, exports, board_1) {
+define(["require", "exports", "./Match"], function (require, exports, Match_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Stage = (function (_super) {
         __extends(Stage, _super);
         function Stage() {
-            var _this = this;
-            console.log("yep");
-            _this = _super.call(this) || this;
+            var _this = _super.call(this) || this;
             _this.setup();
             return _this;
         }
         Stage.prototype.setup = function () {
-            this.board = new board_1.Board();
-            this.board.position.set(180, 120);
-            this.addChild(this.board);
-            this.board.scale.set(1);
+            var match = new Match_1.Match();
+            this.addChild(match);
         };
         Stage.prototype.loop = function (dt) {
         };
