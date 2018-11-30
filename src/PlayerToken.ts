@@ -1,21 +1,36 @@
 /// <reference path="./_all.d.ts" />
-import {PlayerData} from "./PlayerData";
+import { PlayerData } from "./PlayerData";
 
-export class PlayerToken extends PIXI.Container
-{
-    private data:PlayerData;
-    private back:PIXI.Graphics;
-    constructor(data:PlayerData) {
+export class PlayerToken extends PIXI.Container {
+    private back: PIXI.Graphics;
+    public offence:number = -1;
+    public defence:number = -1;
+    public move:number = -1;
+    public pass:number = -1;
+    public stamina:number = -1;
+
+    constructor() {
         super();
-        this.data = data;
         this.back = new PIXI.Graphics();
+        this.addChild(this.back);
         this.draw();
     }
 
-    private draw(){
+    public draw() {
         this.back.clear();
-        this.back.beginFill(0xffffff,1);
-        this.back.drawRect(-30,-30,60,60);
+        this.back.beginFill(0xff0000, 0.03);
+        this.back.drawRect(-30, -30, 60, 60);
+    }
+
+    public static fromData(data): PlayerToken {
+        let instance = new PlayerToken();
+        for (let key in data) {
+            if (instance.hasOwnProperty(key)) {
+                instance[key] = data[key];
+            }
+        }
+        instance.draw();
+        return instance;
     }
 
 }

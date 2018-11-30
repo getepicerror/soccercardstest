@@ -1,4 +1,4 @@
-define(["require", "exports", "./stage"], function (require, exports, stage_1) {
+define(["require", "exports", "./stage", "./carddata"], function (require, exports, stage_1, carddata_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Main = (function () {
@@ -21,6 +21,7 @@ define(["require", "exports", "./stage"], function (require, exports, stage_1) {
         };
         Main.prototype.onFontsLoaded = function () {
             var _this = this;
+            carddata_1.CardData.init();
             this.stage = new stage_1.Stage();
             PIXI.utils.skipHello();
             this.renderer = PIXI.autoDetectRenderer(this.pixiDimensions.width, this.pixiDimensions.height, {

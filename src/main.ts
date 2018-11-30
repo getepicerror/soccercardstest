@@ -1,6 +1,7 @@
 /// <reference path="./_all.d.ts" />
 
 import { Stage } from "./stage";
+import { CardData } from "./carddata";
 
 export class Main {
     private renderer;
@@ -26,6 +27,7 @@ export class Main {
     }
 
     private onFontsLoaded() {
+        CardData.init();
         this.stage = new Stage();
         PIXI.utils.skipHello();
         this.renderer = PIXI.autoDetectRenderer(

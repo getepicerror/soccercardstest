@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./board", "./ball", "./PlayerToken"], function (require, exports, board_1, ball_1, PlayerToken_1) {
+define(["require", "exports", "./board", "./ball", "./PlayerToken", "./carddata"], function (require, exports, board_1, ball_1, PlayerToken_1, carddata_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Point = PIXI.Point;
@@ -31,11 +31,15 @@ define(["require", "exports", "./board", "./ball", "./PlayerToken"], function (r
             _this.team2Deck = [];
             _this.team1Hand = [];
             _this.team2Hand = [];
+            _this.team1Board = [0, 1, 2, 0];
+            _this.team2Board = [0, 1, 2, 0];
+            _this.team1PosID = [62, 65, 20, 110];
+            _this.team2PosID = [73, 70, 71, 72];
             _this.team1Tokens = [];
             _this.team2Tokens = [];
             _this.ballID = 35;
             _this.board = new board_1.Board();
-            _this.board.position.set(180, 120);
+            _this.board.position.set(100, 120);
             _this.addChild(_this.board);
             _this.board.scale.set(1);
             _this.initGame();
@@ -45,8 +49,16 @@ define(["require", "exports", "./board", "./ball", "./PlayerToken"], function (r
             this.ball = new ball_1.Ball();
             this.ball.position = this.idToPos(this.ballID);
             this.board.addChild(this.ball);
+            console.log(carddata_1.CardData.cards);
             for (var i = 0; i < 4; i++) {
-                var token = new PlayerToken_1.PlayerToken();
+                var token = PlayerToken_1.PlayerToken.fromData(carddata_1.CardData.cards[this.team1Board[i]]);
+                token.position = this.idToPos(this.team1PosID[i]);
+                this.board.addChild(token);
+            }
+            for (var i = 0; i < 4; i++) {
+                var token = PlayerToken_1.PlayerToken.fromData(carddata_1.CardData.cards[this.team2Board[i]]);
+                token.position = this.idToPos(this.team2PosID[i]);
+                this.board.addChild(token);
             }
         };
         Match.prototype.idToPos = function (id) {
