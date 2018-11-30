@@ -29,25 +29,26 @@ define(["require", "exports", "./tile"], function (require, exports, tile_1) {
                     this.addChild(tile_2);
                     tile_2.id = this.tiles.length;
                     this.tiles.push(tile_2);
-                    tile_2.x = j * 50;
-                    tile_2.y = i * 50;
+                    tile_2.x = j * Board.TILE_SIZE;
+                    tile_2.y = i * Board.TILE_SIZE;
                 }
             }
             var tile = new tile_1.Tile();
             this.addChild(tile);
             tile.id = this.tiles.length;
             this.tiles.push(tile);
-            tile.x = -1 * 50;
-            tile.y = 4 * 50;
+            tile.x = -1 * Board.TILE_SIZE;
+            tile.y = 4 * Board.TILE_SIZE;
             tile = new tile_1.Tile();
             this.addChild(tile);
             tile.id = this.tiles.length + 1;
             this.tiles.push(tile);
-            tile.x = Board.WIDTH * 50;
-            tile.y = 4 * 50;
+            tile.x = Board.WIDTH * Board.TILE_SIZE;
+            tile.y = 4 * Board.TILE_SIZE;
         };
         Board.WIDTH = 15;
         Board.HEIGHT = 9;
+        Board.TILE_SIZE = 50;
         return Board;
     }(PIXI.Container));
     exports.Board = Board;

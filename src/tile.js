@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports"], function (require, exports) {
+define(["require", "exports", "./board"], function (require, exports, board_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Tile = (function (_super) {
@@ -34,7 +34,7 @@ define(["require", "exports"], function (require, exports) {
             else {
                 this.back.beginFill(0x000000, 0);
             }
-            this.back.drawRect(0, 0, 50, 50);
+            this.back.drawRect(-board_1.Board.TILE_SIZE / 2, -board_1.Board.TILE_SIZE / 2, board_1.Board.TILE_SIZE, board_1.Board.TILE_SIZE);
         };
         Object.defineProperty(Tile.prototype, "id", {
             get: function () {
@@ -50,5 +50,4 @@ define(["require", "exports"], function (require, exports) {
         return Tile;
     }(PIXI.Container));
     exports.Tile = Tile;
-    s;
 });
