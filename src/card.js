@@ -17,8 +17,24 @@ define(["require", "exports"], function (require, exports) {
     var Card = (function (_super) {
         __extends(Card, _super);
         function Card() {
-            return _super.call(this) || this;
+            var _this = _super.call(this) || this;
+            _this.offence = -1;
+            _this.defence = -1;
+            _this.move = -1;
+            _this.pass = -1;
+            _this.stamina = -1;
+            _this.name = "";
+            return _this;
         }
+        Card.fromData = function (data) {
+            var instance = new Card();
+            for (var key in data) {
+                if (instance.hasOwnProperty(key)) {
+                    instance[key] = data[key];
+                }
+            }
+            return instance;
+        };
         return Card;
     }(PIXI.Container));
     exports.Card = Card;
