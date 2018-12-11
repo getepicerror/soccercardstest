@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "./board", "./ball", "./PlayerToken", "./carddata"], function (require, exports, board_1, ball_1, PlayerToken_1, carddata_1) {
+define(["require", "exports", "./board", "./ball", "./PlayerToken", "./carddata", "./card"], function (require, exports, board_1, ball_1, PlayerToken_1, carddata_1, card_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Point = PIXI.Point;
@@ -29,8 +29,8 @@ define(["require", "exports", "./board", "./ball", "./PlayerToken", "./carddata"
             _this.currentTeam = 0;
             _this.team1Deck = [];
             _this.team2Deck = [];
-            _this.team1Hand = [];
-            _this.team2Hand = [];
+            _this.team1Hand = [1, 2, 3];
+            _this.team2Hand = [1, 2];
             _this.team1Board = [0, 1, 2, 0];
             _this.team2Board = [0, 1, 2, 0];
             _this.team1PosID = [62, 65, 20, 110];
@@ -42,6 +42,10 @@ define(["require", "exports", "./board", "./ball", "./PlayerToken", "./carddata"
             _this.board.position.set(100, 120);
             _this.addChild(_this.board);
             _this.board.scale.set(1);
+            _this.hand1 = new PIXI.Container();
+            _this.addChild(_this.hand1);
+            _this.hand2 = new PIXI.Container();
+            _this.addChild(_this.hand2);
             _this.initGame();
             return _this;
         }
@@ -71,6 +75,22 @@ define(["require", "exports", "./board", "./ball", "./PlayerToken", "./carddata"
         };
         Match.prototype.idToY = function (id) {
             return Math.floor(id / board_1.Board.WIDTH) * board_1.Board.TILE_SIZE;
+        };
+        Match.prototype.syncHands = function () {
+            this.hand1.removeChildren();
+            for (var i = 0; i < this.team1Hand.length; i++) {
+                var card = card_1.Card.fromData(carddata_1.CardData.cards[this.team1Hand[i]]);
+                this.hand1.addChild(card);
+                card.x = i * 50;
+                card.rotation = i * 10;
+            }
+            this.hand2.removeChildren();
+            for (var i = 0; i < this.team2Hand.length; i++) {
+                var card = card_1.Card.fromData(carddata_1.CardData.cards[this.team2Hand[i]]);
+                this.hand2.addChild(card);
+                card.x = i * 50;
+                card.rotation = i * 10;
+            }
         };
         return Match;
     }(PIXI.Container));

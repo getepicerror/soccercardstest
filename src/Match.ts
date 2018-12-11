@@ -5,6 +5,7 @@ import { Ball } from "./ball";
 import { PlayerToken } from "./PlayerToken";
 import { PlayerData } from "./PlayerData";
 import { CardData } from "./carddata";
+import { Card } from "./card";
 
 export class Match extends PIXI.Container {
     public team1Name: string = "Team1";
@@ -17,8 +18,8 @@ export class Match extends PIXI.Container {
     public currentTeam: number = 0;
     public team1Deck: number[] = [];
     public team2Deck: number[] = [];
-    public team1Hand: number[] = [];
-    public team2Hand: number[] = [];
+    public team1Hand: number[] = [1, 2, 3];
+    public team2Hand: number[] = [1, 2];
     public team1Board: number[] = [0, 1, 2, 0];
     public team2Board: number[] = [0, 1, 2, 0];
     public team1PosID: number[] = [62, 65, 20, 110];
@@ -28,6 +29,8 @@ export class Match extends PIXI.Container {
     public ball: Ball;
     public ballID = 35;
     public board: Board;
+    public hand1: PIXI.Container;
+    public hand2: PIXI.Container;
 
     public constructor() {
         super();
@@ -35,7 +38,14 @@ export class Match extends PIXI.Container {
         this.board.position.set(100, 120);
         this.addChild(this.board);
         this.board.scale.set(1);
+
+        this.hand1 = new PIXI.Container();
+        this.addChild(this.hand1);
+        this.hand2 = new PIXI.Container();
+        this.addChild(this.hand2);
+
         this.initGame();
+
     }
 
     private initGame() {
@@ -69,5 +79,23 @@ export class Match extends PIXI.Container {
 
     private idToY(id: number): number {
         return Math.floor(id / Board.WIDTH) * Board.TILE_SIZE;
+    }
+
+    public syncHands() {
+        this.hand1.removeChildren();
+        for (let i = 0; i < this.team1Hand.length; i++) {
+            let card = Card.fromData(CardData.cards[this.team1Hand[i]]);
+            this.hand1.addChild(card);
+            card.x = i * 50;
+            card.rotation = i * 10;
+        }
+
+        this.hand2.removeChildren();
+        for (let i = 0; i < this.team2Hand.length; i++) {
+            let card = Card.fromData(CardData.cards[this.team2Hand[i]]);
+            this.hand2.addChild(card);
+            card.x = i * 50;
+            card.rotation = i * 10;
+        }
     }
 }
