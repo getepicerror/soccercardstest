@@ -54,10 +54,10 @@ define(["require", "exports", "./TextFieldFactory"], function (require, exports,
             this.back.clear();
             this.back.beginFill(0xff0000, 0.03);
             this.back.drawRect(-30, -30, 60, 60);
-            this.offField.text = this.offence + "";
-            this.defField.text = this.defence + "";
-            this.movField.text = this.move + "";
-            this.pasField.text = this.pass + "";
+            this.offField.text = "o:" + this.offence;
+            this.defField.text = "d:" + this.defence;
+            this.movField.text = "m:" + this.move;
+            this.pasField.text = "p:" + this.pass;
             this.staField.text = this.stamina + "";
         };
         PlayerToken.fromData = function (data) {
