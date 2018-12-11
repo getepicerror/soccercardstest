@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports"], function (require, exports) {
+define(["require", "exports", "./TextFieldFactory"], function (require, exports, TextFieldFactory_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var PlayerToken = (function (_super) {
@@ -23,15 +23,42 @@ define(["require", "exports"], function (require, exports) {
             _this.move = -1;
             _this.pass = -1;
             _this.stamina = -1;
-            _this.back = new PIXI.Graphics();
-            _this.addChild(_this.back);
+            _this.init();
             _this.draw();
             return _this;
         }
+        PlayerToken.prototype.init = function () {
+            this.back = new PIXI.Graphics();
+            this.addChild(this.back);
+            this.offField = TextFieldFactory_1.TextFieldFactory.getTokenField();
+            this.offField.anchor.set(0, 0);
+            this.offField.position.set(-22, -22);
+            this.addChild(this.offField);
+            this.defField = TextFieldFactory_1.TextFieldFactory.getTokenField();
+            this.defField.anchor.set(1, 0);
+            this.defField.position.set(22, -22);
+            this.addChild(this.defField);
+            this.movField = TextFieldFactory_1.TextFieldFactory.getTokenField();
+            this.movField.anchor.set(0, 1);
+            this.movField.position.set(-22, 22);
+            this.addChild(this.movField);
+            this.pasField = TextFieldFactory_1.TextFieldFactory.getTokenField();
+            this.pasField.anchor.set(1, 1);
+            this.pasField.position.set(22, 22);
+            this.addChild(this.pasField);
+            this.staField = TextFieldFactory_1.TextFieldFactory.getTokenField();
+            this.staField.anchor.set(0.5);
+            this.addChild(this.staField);
+        };
         PlayerToken.prototype.draw = function () {
             this.back.clear();
             this.back.beginFill(0xff0000, 0.03);
             this.back.drawRect(-30, -30, 60, 60);
+            this.offField.text = this.offence + "";
+            this.defField.text = this.defence + "";
+            this.movField.text = this.move + "";
+            this.pasField.text = this.pass + "";
+            this.staField.text = this.stamina + "";
         };
         PlayerToken.fromData = function (data) {
             var instance = new PlayerToken();
