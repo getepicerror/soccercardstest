@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports"], function (require, exports) {
+define(["require", "exports", "./TextFieldFactory"], function (require, exports, TextFieldFactory_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Card = (function (_super) {
@@ -23,9 +23,50 @@ define(["require", "exports"], function (require, exports) {
             _this.move = -1;
             _this.pass = -1;
             _this.stamina = -1;
+            _this.type = "";
             _this.name = "";
+            _this.desc = "";
             return _this;
         }
+        Card.prototype.init = function () {
+            this.back = new PIXI.Graphics();
+            this.back.beginFill(0xffffff, 1);
+            this.back.drawRoundedRect(-40, -55, 80, 110, 10);
+            this.addChild(this.back);
+            this.nameField = TextFieldFactory_1.TextFieldFactory.getTitleField();
+            this.nameField.anchor.set(0.5, 0);
+            this.nameField.position.set(0, -53);
+            this.addChild(this.nameField);
+            switch (this.type) {
+                case "PLAYER":
+                    break;
+                case "EFFECT":
+                    this.descField = TextFieldFactory_1.TextFieldFactory.getCardField();
+                    this.descField.anchor.set(0.5, 0);
+                    this.descField.position.set(0, -30);
+                    this.addChild(this.descField);
+                    break;
+                case "ACTION":
+                    this.descField = TextFieldFactory_1.TextFieldFactory.getCardField();
+                    this.descField.anchor.set(0.5, 0);
+                    this.descField.position.set(0, -30);
+                    this.addChild(this.descField);
+                    break;
+            }
+        };
+        Card.prototype.draw = function () {
+            this.nameField.text = "" + this.name;
+            switch (this.type) {
+                case "PLAYER":
+                    break;
+                case "EFFECT":
+                    this.descField.text = "" + this.desc;
+                    break;
+                case "ACTION":
+                    this.descField.text = "" + this.desc;
+                    break;
+            }
+        };
         Card.fromData = function (data) {
             var instance = new Card();
             for (var key in data) {
@@ -33,6 +74,8 @@ define(["require", "exports"], function (require, exports) {
                     instance[key] = data[key];
                 }
             }
+            instance.init();
+            instance.draw();
             return instance;
         };
         return Card;

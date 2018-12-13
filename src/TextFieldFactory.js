@@ -9,7 +9,19 @@ define(["require", "exports"], function (require, exports) {
             tf.scale.set(0.5);
             return tf;
         };
+        TextFieldFactory.getCardField = function () {
+            var tf = new PIXI.Text("", this.cardStyle);
+            tf.scale.set(0.5);
+            return tf;
+        };
+        TextFieldFactory.getTitleField = function () {
+            var tf = new PIXI.Text("", this.titleStyle);
+            tf.scale.set(0.5);
+            return tf;
+        };
         TextFieldFactory.tokenStyle = { fill: 0xffffff, fontFamily: "Arial", fontSize: 24 };
+        TextFieldFactory.titleStyle = { fill: 0xcccccc, fontFamily: "Arial", fontStyle: "bold", fontSize: 24 };
+        TextFieldFactory.cardStyle = { fill: 0xcccccc, fontFamily: "Arial", fontSize: 24, wordWrapWidth: 155, wordWrap: true };
         return TextFieldFactory;
     }());
     exports.TextFieldFactory = TextFieldFactory;

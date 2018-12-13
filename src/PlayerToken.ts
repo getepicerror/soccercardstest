@@ -47,7 +47,7 @@ export class PlayerToken extends PIXI.Container {
 
     public draw() {
         this.back.clear();
-        this.back.beginFill(0xff0000, 0.03);
+        this.back.beginFill(0xff0000, 0.1);
         this.back.drawRect(-30, -30, 60, 60);
         this.offField.text = "o:"+this.offence;
         this.defField.text = "d:"+this.defence;
